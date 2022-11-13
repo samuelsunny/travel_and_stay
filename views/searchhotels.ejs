@@ -17,20 +17,19 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Travel and Stay</a>
+                <a class="navbar-brand" href="#"><h4>Travel & Stay</h4></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="addflight">Home</a>
-                    </li>
 
                     
                 </ul>
-
+                <span class="align-middle mr-2">
+                    <h1 class="display-4 fs-5 text-center ">Welcome, <%= user.username %> &nbsp; </h1>
+                </span>
                     <a href="logout">
                         <button class="btn btn-warning  ml-2" type="submit">Log out</button>
                     </a>
@@ -38,83 +37,84 @@
             </div>
         </nav>
     </div> 
-    <div class="container mt-2">
+
+    <div class="container-fluid mt-1">
+        <div class="row justify-content-center">
+            <div class="col-7">
+                <div class="row justify-content-center">
+                    <div class="col-2">
+                            <a class="text-decoration-none" href="searchflights">
+                                <button class="btn  btn-outline-primary"><h4 class="m-0 p-1">Flights</h4></button>
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            <a class="text-decoration-none" href="searchhotels">
+                                <button class="btn btn btn-success"><h4 class="m-0 p-1">Hotels</h4></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+    <div class="container-fluid mt-2">
 
         <div class="row justify-content-center">
             
             <div class="col-12">
-                <div class="card">
+                <div class="card bg-light mx-auto">
                     <div class="card-body">
-                        <form method = "post">
+                        <form method = "post" action="searchhotels">
                         <div class="row">
                             
-                            <div class="col-3 m-2">
+                            <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label">From</label>
-                                    <input class="form-control me-2" type="search" placeholder="Departure city" aria-label="Departure city">
+                                    <label for="user_name" class="form-label"><h4>City</h4></label>
+                                    <input class="form-control me-2" type="search" placeholder="Enter city name" aria-label="Departure city" id="city" name="city">
                                 </div>
                             </div>
-                            <div class="col-3 m-2">
+                            <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label">To</label>
-                                    <input class="form-control me-2" type="search" placeholder="Destination city" aria-label="Destination city">
+                                    <label for="user_name" class="form-label"><h4>Country</h4></label>
+                                    <input class="form-control me-2" type="search" placeholder="Enter country name" aria-label="Destination city" id="country" name="country">
                                 </div>
                             </div>
-                            <div class="col-2 m-2">
+                            <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label">Travel date</label>
-                                    <input class="form-control me-2" type="date" placeholder="Date of travel" aria-label="Date of travel">
+                                    <label for="user_name" class="form-label"><h4>Check-in</h4></label>
+                                    <input class="form-control me-2" type="date" placeholder="Date of check-in" aria-label="Date of travel" id="check_in" name="check_in" onchange="getTravelDate()">
                                 </div>
                             </div>
-                            <div class="col-1 m-2">
+                            <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label">Travellers</label>
-                                    <input class="form-control me-2" type="number" placeholder="" aria-label="number_of_travellers">
+                                    <label for="user_name" class="form-label"><h4>Check-out</h4></label>
+                                    <input class="form-control me-2" type="date" placeholder="Date of check-out" aria-label="Date of travel" id="check_out" name="check_out" onchange="getReturnDate()">
                                 </div>
                             </div>
-                            <div class="col-2 m-2">
+                            <div class="col-1 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="exampleDataList" class="form-label">Preferred class</label>
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Select class">
-                                    <datalist id="datalistOptions">
-                                        <option value="Business">
-                                        <option value="Premium economy">
-                                        <option value="Economy">
-                                    </datalist>
+                                    <label for="user_name" class="form-label"><h4>People</h4></label>
+                                    <input class="form-control me-2" type="number" placeholder="" aria-label="number_of_travellers" id="people" name="people" >
+                                </div>
+                            </div>
+                            <div class="col-2 m-2 mt-0">
+                                <div class="row text-left">
+                                    <label for="exampleDataList" class="form-label"><h4>Preference</h4></label>
+                                    <select class="form-select" aria-label="Default select example" onchange="getPreference()" id="selection" name="selection">
+                                        <option selected>Choose class</option>
+                                        <option value="1">Suite</option>
+                                        <option value="2">Room</option>
+                                      </select>
                                 </div>
                             </div>
                         </div>   
-                        <div class="row justify-content-center bg-light">
-                            <div class="col-8 p-1">
-                                <div class="row text-center">
-                                    <div class="col-3 text-right">
-                                            <input class=" mt-3" type="checkbox" id="oneway" value="round_trip" onchange="displayDate()">
-                                            <label class="form-check-label" for="inlineCheckbox1">Round trip</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="row ">
-                                            <div class="col-4 text-right">
-                                                <p class="mt-2">Return date</p>
-                                            </div>
-                                            <div class="col-8 text-left">
-                                                <input class="form-control me-2" type="date" placeholder="Date of return" id="departure_date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                        </div>
-
-                            
-                            
-                            
+                                                
                         <div class="row text-center">
                             <div id="sender">
-                                <button type="submit" class="btn btn-success mt-2" id="button" onclick="reviewInfo()">Search for flights</button>
+                                <button type="submit" class="btn btn-success mt-2 my-auto" id="button" ><h5>Search</h5></button>
                             </div>
-                        </div>   
+                        </div>  
                             
                         </form>
                     </div>
@@ -124,6 +124,79 @@
         </div>
         
     </div>
+    <script>
+        var check_in_date = "";
+        var check_out_date = "";
+        function reset_date_native(date_field) {
+            // var date_input = document.getElementById('check_out');
+
+            //erase the input value
+            date_field.value = '';
+
+            //prevent error on older browsers (aka IE8)
+            if (date_field.type === 'date') {
+                //update the input content (visually)
+                date_field.type = 'text';
+                date_field.type = 'date';
+            }
+        }
+        function getReturnDate()
+        {
+            check_out_date_field = document.getElementById("check_out");
+            check_out_date = document.getElementById("check_out").value;
+            check_in_date = document.getElementById("check_in").value;
+            console.log("check_out date:",check_in_date);
+
+            if(check_in_date>check_out_date)
+            {
+                alert("Please select a proper date of check-out");
+                // Resetting the return date
+                reset_date_native(check_out_date_field)
+            }
+            else
+            {
+                localStorage.setItem("check_out_date",check_out_date);
+            }
+        }
+        function getTravelDate()
+        {
+            currentDate = new Date().toJSON().slice(0, 10);
+            check_in_date_field = document.getElementById("check_in");
+            check_out_date_field = document.getElementById("check_out");
+
+            check_in_date = check_in_date_field.value;
+            check_out_date = check_out_date_field.value;
+            if(check_out_date != '')
+            {
+                if(check_in_date>check_out_date)
+                {
+                    alert("Please select a proper date for check-in");
+                    // Resetting the return date
+                    reset_date_native(check_in_date_field)
+                }
+                
+            }
+            else if(currentDate > check_in_date)
+            {
+                alert("Please select a proper date for check-in");
+                // Resetting the return date
+                reset_date_native(check_in_date_field)
+            }
+            else
+            {
+                localStorage.setItem("check_in_date",check_in_date);
+            }
+           
+            // check_in_date_field.innerHTML = 'None';
+            console.log("check_in date:",check_in_date,"check_out date:",check_out_date,"current_date:",currentDate);
+        }
+
+        function getPreference()
+        {
+            selection = document.getElementById("selection");
+            console.log("Seleted preference:",selection.options[selection.selectedIndex].text);
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </body>
 </html>
