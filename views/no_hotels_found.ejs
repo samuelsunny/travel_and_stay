@@ -23,12 +23,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="searchflights">Book flights</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="searchhotels">Book hotels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="viewcart">My cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="viewcart">My bookings</a>
+                    </li>
                     
-
                     
                 </ul>
                 <span class="align-middle mr-2">
-                    <h1 class="display-4 fs-5 text-center ">Welcome, <%= user.username %> &nbsp; </h1>
+                    <a class="nav-link active" href="editprofile">
+                        <h1 class="display-4 fs-5 text-center ">Welcome, <%= user.username %> &nbsp; </h1>
+                    </a>
                 </span>
                     <a href="logout">
                         <button class="btn btn-warning  ml-2" type="submit">Log out</button>

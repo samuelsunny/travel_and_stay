@@ -56,15 +56,14 @@
             <div class="col-7">
                 <div class="row justify-content-center">
                     <div class="col-2">
-                            <a class="text-decoration-none" href="searchflights">
-                                <button class="btn  btn-outline-primary"><h4 class="m-0 p-1">Flights</h4></button>
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            <a class="text-decoration-none" href="searchhotels">
-                                <button class="btn btn btn-success"><h4 class="m-0 p-1">Hotels</h4></button>
-                            </a>
-                        </div>
+                        <a class="text-decoration-none" href="searchflights">
+                            <button class="btn btn-primary"><h4 class="m-0 p-1">Flights</h4></button>
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <a class="text-decoration-none" href="searchhotels">
+                            <button class="btn btn btn-outline-success"><h4 class="m-0 p-1">Hotels</h4></button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -78,37 +77,37 @@
             <div class="col-12">
                 <div class="card bg-light mx-auto">
                     <div class="card-body">
-                        <form method = "post" action="searchhotels">
+                        <form method = "post" action="searchflights">
                         <div class="row">
                             
                             <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label"><h4>City</h4></label>
-                                    <input class="form-control me-2" type="search" placeholder="Enter city name" aria-label="Departure city" id="city" name="city" value="<%= city %>">
+                                    <label for="user_name" class="form-label"><h4>From</h4></label>
+                                    <input class="form-control me-2" type="search" placeholder="Enter city name" aria-label="Departure city" id="departure_city" name="departure_city"  value="<%= departure_city %>">
                                 </div>
                             </div>
                             <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label"><h4>Country</h4></label>
-                                    <input class="form-control me-2" type="search" placeholder="Enter country name" aria-label="Destination city" id="country" name="country" value="<%= country %>">
+                                    <label for="user_name" class="form-label"><h4>To</h4></label>
+                                    <input class="form-control me-2" type="search" placeholder="Enter country name" aria-label="Destination city" id="destination_city" name="destination_city" value="<%= destination_city %>">
                                 </div>
                             </div>
                             <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label"><h4>Check-in</h4></label>
-                                    <input class="form-control me-2" type="date" placeholder="Date of check-in" aria-label="Date of travel" id="check_in" name="check_in" onchange="getTravelDate()" value="<%= check_in %>">
+                                    <label for="user_name" class="form-label"><h4>Travel date</h4></label>
+                                    <input class="form-control me-2" type="date" placeholder="Date of check-in" aria-label="Date of travel" id="travel_date" name="travel_date" value="<%= travel_date %>">
                                 </div>
                             </div>
                             <div class="col-2 m-2 mt-0">
                                 <div class="row text-left">
-                                    <label for="user_name" class="form-label"><h4>Check-out</h4></label>
-                                    <input class="form-control me-2" type="date" placeholder="Date of check-out" aria-label="Date of travel" id="check_out" name="check_out" onchange="getReturnDate()" value="<%= check_out %>">
+                                    <label for="user_name" class="form-label"><h4>Round trip</h4></label>
+                                    <input class="form-control me-2" type="date" placeholder="Date of check-out" aria-label="Date of travel" id="return_date" name="return_date" value="<%= return_date %>">
                                 </div>
                             </div>
                             <div class="col-1 m-2 mt-0">
                                 <div class="row text-left">
                                     <label for="user_name" class="form-label"><h4>People</h4></label>
-                                    <input class="form-control me-2" type="number" placeholder="" aria-label="number_of_travellers" value="<%= people %>" id="people" name="people">
+                                    <input class="form-control me-2" type="number" placeholder="" aria-label="number_of_travellers" value="<%= people %>" id="people" name="people" value="<%= people %>">
                                 </div>
                             </div>
                             <div class="col-2 m-2 mt-0">
@@ -117,16 +116,16 @@
                                     <select class="form-select" aria-label="Default select example" onchange="getPreference()" id="selection" name="selection" value="<%= preference %>">
                                         <option selected>Choose class</option>
                                         <% if(preference == 1) { %>
-                                            <option value="1" selected>Suite</option>
+                                            <option value="1" selected>Business</option>
                                         <% } %>
                                         <% if(preference != 1) { %>
-                                            <option value="1">Suite</option>
+                                            <option value="1">Business</option>
                                         <% } %>
                                         <% if(preference == 2) { %>
-                                            <option value="2" selected>Room</option>
+                                            <option value="2" selected>Economy</option>
                                         <% } %>
                                         <% if(preference != 2) { %>
-                                            <option value="2">Room</option>
+                                            <option value="2">Economy</option>
                                         <% } %>
                                       </select>
                                 </div>
@@ -135,7 +134,7 @@
                                                 
                         <div class="row text-center">
                             <div id="sender">
-                                <button type="submit" class="btn btn-success mt-2 my-auto" id="button" ><h5>Search</h5></button>
+                                <button type="submit" class="btn btn-primary mt-2 my-auto" id="button" ><h5>Search</h5></button>
                             </div>
                         </div>  
                             
@@ -154,50 +153,64 @@
         <div class="row justify-content-center">
             <div class="col-8 text-center">
                
-                <div class="card" style="max-width: 760px;">
+                <div class="card bg-light" style="max-width: 760px;">
                     <div class="row">
-                      <div class="col-md-5">
-                        <% if(search_results[i].type == 'suite') { %>
-                        <img src="suit.jpg" class="img-fluid rounded-start" alt="..." width = "100%" height="100%">
-                        <% } %>
-                        <% if(search_results[i].type == 'room') { %>
-                            <img src="room.jpg" class="img-fluid rounded-start" alt="..." width = "100%" height="100%">
-                        <% } %>
+                      <div class="col-md-4 m-0 mt-2">
+                          <h5 class="card-title" name="hotel_name"><%= search_results[i].flightname %></h5>
+                          <label for="name" class="form-label p-0 m-0"><b>Departure airport</b></label>
+
+                          <p class="card-text p-0 mb-1" name="departure_airport"><%= search_results[i].departure_airport %></p>
+                          <label for="name" class="form-label p-0 m-0"><b>Departure date</b></label>
+
+                          <p class="card-text p-0 mb-1" name="departure_date"><%= search_results[i].departure_date %></p>
+                          <label for="name" class="form-label p-0 m-0"><b>Departure time</b></label>
+
+                          <p class="card-text p-0 m-0" name="departure_time"><%= search_results[i].departure_time %></p>
                       </div>
                       <div class="col-md-4 m-0 mt-2">
-                          <h5 class="card-title" name="hotel_name"><%= search_results[i].hotel_name %></h5>
-                          <p class="card-text" name="room_type"><%= search_results[i].name %></p>
-                          <p class="card-text p-0" name="amenities"><%= search_results[i].amenities %></p>
-                          <p class="card-text p-0 mb-1" name="city"><small class="text-muted"><%= search_results[i].city.charAt(0).toUpperCase() + search_results[i].city.slice(1) %></small></p>
-                          <p class="card-text p-0 m-0" name="price">Price: $ <%= search_results[i].price %></p>
-                      </div>
+                        <h5 class="card-title" name="hotel_name"><%= search_results[i].flightnumber %></h5>
+                          <label for="name" class="form-label p-0 m-0"><b>Arrival airport</b></label>
+
+                          <p class="card-text p-0 mb-1" name="departure_airport"><%= search_results[i].arrival_airport %></p>
+                          <label for="name" class="form-label p-0 m-0"><b>Arrival date</b></label>
+
+                          <p class="card-text p-0 mb-1" name="departure_date"><%= search_results[i].arrival_date %></p>
+                          <label for="name" class="form-label p-0 m-0"><b>Arrival time</b></label>
+
+                          <p class="card-text p-0 m-0" name="departure_time"><%= search_results[i].arrival_time %></p>
+                    </div>
                       <div class="col-md-3 mt-4">
                         <div class="row mb-1 p-4">
-                            <form method="post" action="book_now">
-                                    <input type="hidden" id="roomId" name="roomId" value = "<%= search_results[i]._id %>"/>
-                                    <input type="hidden" id="hotel_name" name="hotel_name" value = "<%= search_results[i].hotel_name %>"/>
-                                    <input type="hidden" id="type" name="type" value = "<%= search_results[i].type %>"/>
+                            <form method="post" action="book_flight_now">
+                                <input type="hidden" id="flight_id" name="flight_id" value = "<%= search_results[i]._id %>"/>
+                                <input type="hidden" id="flight_name" name="flight_name" value = "<%= search_results[i].flightname %>"/>
+                                <input type="hidden" id="flightnumber" name="flightnumber" value = "<%= search_results[i].flightnumber %>"/>
+                                <input type="hidden" id="departure_airport" name="departure_airport" value = "<%= search_results[i].departure_airport %> %>"/>
 
-                                    <input type="hidden" id="check_in_date" name="check_in_date" value = "<%= check_in %>"/>
-                                    <input type="hidden" id="check_out_date" name="check_out_date" value = "<%= check_out %>"/>
-                                    <input type="hidden" id="people" name="people" value ="<%= people %>"/>
-                                    <input type="hidden" id="preference" name="preference" value ="<%= preference %>"/>
+                                <input type="hidden" id="arrival_airport" name="arrival_airport" value = "<%= search_results[i].arrival_airport %>"/>
+                                <input type="hidden" id="departure_date" name="departure_date" value = "<%= search_results[i].departure_date %>"/>
+                                <input type="hidden" id="arrival_date" name="arrival_date" value ="<%= search_results[i].arrival_date %>"/>
+                                <input type="hidden" id="departure_time" name="departure_time" value ="<%= search_results[i].departure_time %>"/>
+                                <input type="hidden" id="arrival_time" name="arrival_time" value ="<%= search_results[i].arrival_time %>"/>
 
-                                    <input type="hidden" id="add_to_cart" value="abc"/>
-                                <button type="submit" class="btn btn-primary m-0">Book now!</button>
-                            </form>
+
+                                <input type="hidden" id="add_to_cart" value="abc"/>
+                            <button type="submit" class="btn btn-primary m-0">Book now!</button>
+                        </form>
                             
                         </div>
                         <div class="row p-4">
-                            <form method="post" action="add_to_cart">
-                                    <input type="hidden" id="roomId" name="roomId" value = "<%= search_results[i]._id %>"/>
-                                    <input type="hidden" id="hotel_name" name="hotel_name" value = "<%= search_results[i].hotel_name %>"/>
-                                    <input type="hidden" id="type" name="type" value = "<%= search_results[i].type %>"/>
-
-                                    <input type="hidden" id="check_in_date" name="check_in_date" value = "<%= check_in %>"/>
-                                    <input type="hidden" id="check_out_date" name="check_out_date" value = "<%= check_out %>"/>
-                                    <input type="hidden" id="people" name="people" value ="<%= people %>"/>
-                                    <input type="hidden" id="preference" name="preference" value ="<%= preference %>"/>
+                            <form method="post" action="add_flight_to_cart">
+                                    <input type="hidden" id="flight_id" name="flight_id" value = "<%= search_results[i]._id %>"/>
+                                    <input type="hidden" id="flight_name" name="flight_name" value = "<%= search_results[i].flightname %>"/>
+                                    <input type="hidden" id="flightnumber" name="flightnumber" value = "<%= search_results[i].flightnumber %>"/>
+                                    <input type="hidden" id="departure_airport" name="departure_airport" value = "<%= search_results[i].departure_airport %> %>"/>
+    
+                                    <input type="hidden" id="arrival_airport" name="arrival_airport" value = "<%= search_results[i].arrival_airport %>"/>
+                                    <input type="hidden" id="departure_date" name="departure_date" value = "<%= search_results[i].departure_date %>"/>
+                                    <input type="hidden" id="arrival_date" name="arrival_date" value ="<%= search_results[i].arrival_date %>"/>
+                                    <input type="hidden" id="departure_time" name="departure_time" value ="<%= search_results[i].departure_time %>"/>
+                                    <input type="hidden" id="arrival_time" name="arrival_time" value ="<%= search_results[i].arrival_time %>"/>                               
 
                                     <input type="hidden" id="add_to_cart" value="abc"/>
                                 <button type="submit" class="btn btn-warning m-0">Add to cart</button>

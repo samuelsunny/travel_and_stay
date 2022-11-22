@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search flights</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .paymentinfo
+        {
+            background-color: #5DA7DB;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><h4>Travel & Stay</h4></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="searchflights">Book flights</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="searchhotels">Book hotels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="viewcart">My cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="viewcart">My bookings</a>
+                    </li>
+                    
+                    
+                </ul>
+                <span class="align-middle mr-2">
+                    <a class="nav-link active" href="editprofile">
+                        <h1 class="display-4 fs-5 text-center ">Welcome, <%= user.username %> &nbsp; </h1>
+                    </a>
+                </span>
+                    <a href="logout">
+                        <button class="btn btn-warning  ml-2" type="submit">Log out</button>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div> 
+    <div class="container">
+    <h3 class="mt-2">Hotel rooms:</h3>
+    <div class="container justify-content-center mt-5">
+        <% for(var i=0; i < search_results.length; i++) { %>
+
+        <div class="row justify-content-center">
+            <div class="col-8 text-center">
+               
+                <div class="card" style="max-width: 760px;">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <% if(search_results[i].type == 'suite') { %>
+                        <img src="suit.jpg" class="img-fluid rounded-start" alt="..." width = "100%" height="100%">
+                        <% } %>
+                        <% if(search_results[i].type == 'room') { %>
+                            <img src="room.jpg" class="img-fluid rounded-start" alt="..." width = "100%" height="100%">
+                        <% } %>
+                      </div>
+                      <div class="col-md-4 m-0 mt-2">
+                          <h5 class="card-title" name="hotel_name"><%= search_results[i].hotel_name %> at <small class="text-muted"><%= search_results[i].city.charAt(0).toUpperCase() + search_results[i].city.slice(1) %></small></h5>
+                          <p class="card-text p-0 m-0" name="room_type"><%= search_results[i].type %></p>
+                          <p class="card-text p-0 " name="amenities"><%= search_results[i].amenities %></p>
+                          <p class="card-text p-0 m-0" name="check_in"><b>Check-in:</b>  <%= search_results[i].check_in_date %></p>
+                          <p class="card-text p-0 m-0" name="check_out"><b>Check-out:</b> <%= search_results[i].check_out_date %></p>
+
+                          <p class="card-text p-0 m-0" name="price">Price: $ <%= search_results[i].price %></p>
+                      </div>
+                      <div class="col-md-3 mt-4">
+                        <div class="row mb-1 p-4">
+                            <form type="post" action="book_now">
+                                <input type="hidden" id="booking" value = "abc"/>
+
+                                <button type="button" class="btn btn-primary m-0" onclick="booking()">Book now!</button>
+                            </form>
+                            
+                        </div>
+                        <div class="row p-4">
+                            <form method="post" action="deletecartitem">
+                                    <input type="hidden" id="roomId" name="roomId" value = "<%= search_results[i].roomId %>"/>
+
+                                    <input type="hidden" id="add_to_cart" value="abc"/>
+                                <button type="submit" class="btn btn-warning m-0">Delete</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <% } %>
+        <div class="row mt-2 justify-content-center">
+            <div class="col-4 text-center bg-light">
+                <h4>Total cost &nbsp;&nbsp;&nbsp;: </h4>
+            </div>
+            <div class="col-4 text-center bg-light">
+                <h4>$<%= total_cost %></h4>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        var return_date = "";
+        var travel_date = "";
+        function reset_date_native() {
+            var date_input = document.getElementById('return_date');
+
+            //erase the input value
+            date_input.value = '';
+
+            //prevent error on older browsers (aka IE8)
+            if (date_input.type === 'date') {
+                //update the input content (visually)
+                date_input.type = 'text';
+                date_input.type = 'date';
+            }
+        }
+        function getReturnDate()
+        {
+            return_date_field = document.getElementById("return_date");
+            return_date = document.getElementById("return_date").value;
+            travel_date = document.getElementById("travel_date").value;
+            if(travel_date>return_date)
+            {
+                alert("Please select a proper date of return");
+                // Resetting the return date
+                reset_date_native()
+            }
+        }
+        function getTravelDate()
+        {
+            travel_date_field = document.getElementById("travel_date");
+            travel_date = document.getElementById("travel_date").value;
+            // travel_date_field.innerHTML = 'None';
+            console.log("travel_date:",travel_date);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>
