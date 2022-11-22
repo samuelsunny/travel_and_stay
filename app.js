@@ -1300,23 +1300,6 @@ app.get("/viewcart", (req, res) => {
 
     if(req.session.user && req.session.user.account_type == 'individual')
     {
-        FlightCart.find({userId: req.session.user._id},function(err,flights_results){
-            if(err)
-            {
-                console.log("Error part:",err);
-                res.status(500).send();
-    
-            }
-            else
-            {
-                var total_cost = 0;
-                console.log("Ready:",flights_results.length);
-                var rooms = [];
-                for (let i = 0; i < flights_results.length; i++) {
-                    rooms[i] = flights_results[i]._doc;
-                    // total_cost += parseInt(flights_results[i]._doc.price);
-                }
-                // console.log("Rooms:",rooms);
                 RoomCart.find({userId: req.session.user._id},function(err,results){
                     if(err)
                     {
@@ -1340,21 +1323,17 @@ app.get("/viewcart", (req, res) => {
                             res.render('cart_empty',{user: req.session.user});
                         }
     
-                if( flights_results.length == 0 && results.length == 0)
-                {
-                    res.render('cart_empty',{user: req.session.user});
-                }
-                else{
-                    res.render('viewcart',{user: req.session.user,search_results: results,flights_results:flights_results,total_cost:total_cost});  
-                }
-            }
-        });
+               
+                                else{
+                                    res.render('viewcart',{user: req.session.user,search_results: results,flights_results:flights_results,total_cost:total_cost});  
+                                }
+                            }
+                        });
+                    
+                            }
+        
+        
     
-            }
-        });
-        
-        
-    }
     
         // res.render('viewcart',{user: req.session.user,});
         // res.sendFile(__dirname + "/homepage.html");
