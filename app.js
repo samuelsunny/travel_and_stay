@@ -655,7 +655,7 @@ app.post("/searchflights", (req, res) => {
     try {
         var destination_city_name = destination_city.toLowerCase();
     }
-      catch(err) {
+    catch(err) {
         var destination_city_name = "";
     }
 
@@ -677,8 +677,8 @@ app.post("/searchflights", (req, res) => {
     {
         if(return_date != "")
         {
-            Flight.find({departure_date: travel_date, arrival_date:arrival_date,departure_city_name:departure_city,
-                destination_city_name:destination_city},function(err,results){
+            Flight.find({departure_date: travel_date, arrival_date:return_date,departure_city:String(departure_city_name),
+                arrival_city:String(destination_city_name)},function(err,results){
                 if(err)
                 {
                     console.log("Error part:",err);
@@ -718,7 +718,7 @@ app.post("/searchflights", (req, res) => {
         else
         {
             console.log("Inside flights");
-            Flight.find({departure_date: travel_date},function(err,results){
+            Flight.find({departure_date: travel_date,departure_city:String(departure_city_name),arrival_city:String(destination_city_name)},function(err,results){
                     if(err)
                     {
                         console.log("Error part:",err);
